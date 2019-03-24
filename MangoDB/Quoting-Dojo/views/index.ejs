@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome to Quoting Dojo</h1>
+    <form action="/process" method="POST">
+        <div>Your name:<input type="text" name='name'></div>
+        <div>Your quote:<textarea name="quote"></textarea></div>
+        <input style='background-color:greenyellow;color:white' type="submit" value='Add my quote!'><span style='margin-left:40px;background-color:aqua;color:white'><a href="/result">Skip to quotes!</a></span>
+    </form>
+
+    <!-- tip to easily see objects printed in full instead of [object Object] -->
+    <!-- <%- JSON.stringify(messages) %> -->
+    <!-- based on the structure of your messages, determine how to display them -->
+    <% if(messages.quote) { %>
+        <% for (var x of messages.quote) { %>
+            <h3>
+                <%= x %>
+            </h3>
+            <% } %>
+                <% } %>
+</body>
+
+</html>

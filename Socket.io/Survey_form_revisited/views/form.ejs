@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var socket = io();
+
+            socket.on('updated_message', function(data) { //4
+                console.log(data.msg);
+                $('#display').html('You just submited ' + JSON.stringify(data.msg))
+            });
+            socket.on('random_number', function(data) { //4
+                console.log(data.num);
+                $('#display').append(data.num)
+            });
+
+            $('#coding').submit(function() {
+                var data = {
+                    name: $('#name').val(),
+                    location: $('#lo').val(),
+                    language: $('#lan').val(),
+                    comment: $('#com').val()
+                }
+                console.log(data)
+                socket.emit('posting_form', {
+                    data: data
+                });
+                return false;
+            });
+
+        })
+    </script>
+</head>
+
+<body>
+    <h1>Survey Form</h1>
+    <div id='display'></div>
+    <form id='coding' action="/process" method="POST">
+        Your name:<input type="text" id='name' name='name'> Dojo location:<select name="lo" id="lo">
+        <option value='Seattle'>Seattle</option>
+        <option value='San Jose'>San Jose</option>
+        <option value='New York'>New York</option>
+    </select> Favorate language<select name="lan" id="lan">
+            <option value='Chinese'>Chinese</option>
+            <option value='Japaness'>Japanese</option>
+            <option value='English'>English</option>
+    </select> comment(optional):
+        <textarea name="com" id="com" cols="30" rows="10">empty</textarea>
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+</html>

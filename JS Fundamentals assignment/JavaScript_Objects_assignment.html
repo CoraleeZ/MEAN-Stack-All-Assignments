@@ -1,0 +1,36 @@
+！
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function printNameCohort(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                console.log('name:' + arr[i].name + ', cohort:' + arr[i].cohort)
+            }
+        }
+
+        function challenge2(arr) {
+            for (var i in arr) {
+                console.log(arr[i])
+                for (var j = 0; j < arr[i].length; j++) {
+                    var num = arr[i][j].first_name.length + arr[i][j].last_name.length
+                    console.log((j + 1) + ' - ' + arr[i][j].last_name + ',' + arr[i][j].first_name + ' - ' + num)
+                }
+
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

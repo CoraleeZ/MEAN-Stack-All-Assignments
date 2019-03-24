@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Survey Form</h1>
+    <form action="/process" method="POST">
+        Your name:<input type="text" name='name'> Dojo location:<select name="lo" id="">
+        <option value='Seattle'>Seattle</option>
+        <option value='San Jose'>San Jose</option>
+        <option value='New York'>New York</option>
+    </select> Favorate language<select name="lan" id="">
+            <option value='Chinese'>Chinese</option>
+            <option value='Japaness'>Japanese</option>
+            <option value='English'>English</option>
+    </select> comment(optional):
+        <textarea name="com" id="" cols="30" rows="10">empty</textarea>
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+</html>

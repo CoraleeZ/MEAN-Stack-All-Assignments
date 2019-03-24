@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var socket = io();
+
+            $('#btn').click(function() {
+                socket.emit('click');
+            });
+
+
+            $('#res').click(function() {
+                socket.emit('res');
+            });
+
+
+            socket.on('updateAllClients', function(data) {
+                console.log(data)
+                $('#display').html(data.data)
+            });
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <h1>The button has been pushed <span id='display'>0</span> times!</h1>
+    <p>push the button to update the count</p>
+    <button id='btn'>Push he ipec button</button>
+    <button id='res'>Reset</button>
+</body>
+
+</html>

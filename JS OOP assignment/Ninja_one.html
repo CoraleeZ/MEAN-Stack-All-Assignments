@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function Ninja(name) {
+            var self = this;
+            this.name = name;
+            this.health = 100;
+            var speed = 3;
+            var strength = 3;
+
+            this.sayName = function() {
+                console.log("My ninja name is " + name + "!");
+
+            }
+            this.showStats = function() {
+                console.log("Name:" + name + ", Health:" + this.health + ", Speed:" + speed + ", Strength:" + strength);
+
+            }
+            this.drinkSake = function() {
+                this.health += 10
+
+            }
+            this.punch = function(func) {
+                if (func instanceof Ninja) {
+                    func.health -= 5;
+                    console.log(func.name + " was punched by " + this.name + " and lost 5 Health!")
+                }
+            }
+            this.kick = function(func) {
+                if (func instanceof Ninja) {
+
+                    func.health -= (strength * 15)
+                    console.log(func.name + " was kicked by " + this.name + " and lost " + (strength * 15) + " Health!")
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

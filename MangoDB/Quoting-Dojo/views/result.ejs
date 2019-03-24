@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Here are the awesome quotes!</h1>
+    <!-- <%- JSON.stringify(data) %> -->
+    <% for(var x in data){%>
+        <P style="color:grey;font-size: 15px">
+            "
+            <%= data[x].quote%>"
+        </P>
+        <p style="color:blue;margin-left: 50px;">-
+            <%= data[x].name%> at
+                <%= data[x].createdAt%>
+        </p>
+        <%}%>
+</body>
+
+</html>

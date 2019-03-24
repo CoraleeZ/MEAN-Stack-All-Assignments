@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>The dojo message board</h1>
+    <hr>
+    <form action="/message" method="POST">
+        <p>Name:</p>
+        <input type="text" name="name">
+        <p>Message:</p>
+        <input type="text" name="content">
+        <p><input type="submit" value="post message"></p>
+    </form>
+    <br>
+    <br>
+    <br>
+
+
+    <% for (var message of data){%>
+        <p style="font-size:20px;">Name:
+            <%= message.name %>
+        </p>
+        <p style="font-size:20px;">message:
+            <%= message.content %>
+        </p>
+        <div style="margin-left:20px">
+            <%if(message.comments){%>
+                <%for (var comment of message.comments){%>
+                    <p style="font-size:20px;">Name:
+                        <%= comment.name %>
+                    </p>
+                    <p style="font-size:20px;">comment:
+                        <%= comment.content %>
+                    </p>
+                    <br>
+                    <br>
+                    <%}%>
+                        <%}%>
+                            <form action="/comment" method="POST">
+                                <p>Name:</p>
+                                <input type="text" name="name">
+                                <p>Message:</p>
+                                <input type="text" name="content">
+                                <input type='hidden' name='id' value='<%= message.id %>'>
+                                <p><input type="submit" value="post comment"></p>
+                            </form>
+        </div>
+        <hr>
+        <%}%>
+
+</body>
+
+</html>

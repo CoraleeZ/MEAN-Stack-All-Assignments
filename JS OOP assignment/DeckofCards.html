@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Card {
+            constructor(number, suit) {
+                this.Number = number;
+                this.Suit = suit;
+                if (number == 1) {
+                    this.String = 'Ace';
+                }
+                if (number < 11) {
+                    this.String = String(number)
+                }
+                if (number == 11) {
+                    this.String = 'Jack'
+                }
+                if (number == 12) {
+                    this.String = "Queen"
+                }
+                if (number == 13) {
+                    this.String = "King"
+                }
+            }
+            Show = function() {
+                console.log("This card is" + this.Suit + this.String + this.Number)
+            }
+        }
+
+
+        class Deck {
+            constructor() {
+
+                this.Reset();
+                this.Number = 52
+            }
+            Reset() {
+                this.deck = [];
+                this.Number = 52
+                for (var j = 0; j < 52; j++) {
+
+                    if (j < 13) {
+                        var suit = 'Clubs'
+                        var number = j % 13 + 1;
+                    } else if (j < 26) {
+                        var suit = 'Diamonds'
+                        var number = j % 13 + 1;
+                    } else if (j < 39) {
+                        var suit = 'Hearts'
+                        var number = j % 13 + 1;
+                    } else if (j < 52) {
+                        var suit = 'Sprades'
+                        var number = j % 13 + 1;
+                    }
+                    this.deck.push(new Card(number, suit))
+                }
+                return this
+            }
+
+            Shuffle() {
+                for (var i = 0; i < this.deck.length; i++) {
+                    var x = Math.floor(Math.random() * 51)
+                    var tem = this.deck[i];
+                    this.deck[x] = this.deck[i]
+                    this.deck[x] = tem
+                }
+                return this
+            }
+
+            Deal() {
+                var point = Math.floor(Math.random() * 51)
+                var del = this.deck.splice(point, 1);
+                this.Number = this.deck.length
+                console.log('you delete ' + del[0].Number + del[0].String + del[0].Suit + '! now u have ' + this.Number + " cards on desk")
+                return del[0]
+            }
+        }
+
+        class Player {
+            constructor(name, deck) {
+                this.name = name;
+                this.deck = deck;
+                this.hand = [];
+                this.discards = [];
+            }
+            take() {
+                if (this.deck.Number > 0) {
+                    var y = this.deck.Deal()
+                    var newcard = new Card(y.Number, y.Suit)
+                    this.hand.push(newcard)
+                    console.log('u take a card ' + newcard + ' from ' + this.deck.name)
+                } else {
+                    console.log('not enough card on deck')
+                }
+                return this
+            }
+            discard(number, suit) {
+                if ((this.hand[0])) {
+                    for (var i = 0; i < this.hand.length; i++) {
+                        if (this.hand[i].Number == number && this.hand[i].Suit == suit) {
+
+                            var x = this.hand.splice(i, 1)
+                            this.discards.push(x[0])
+                            console.log('u discard a card ' + x[0])
+                            break
+                        }
+                    }
+                } else {
+                    console.log('not enough card in hand')
+                }
+                return this
+            }
+        }
+    </script>
+</body>
+
+</html

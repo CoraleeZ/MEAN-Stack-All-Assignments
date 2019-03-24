@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <% if(data){ %>
+        <h1>
+            name:
+            <%= data.name%>
+        </h1>
+        <p>
+            info:
+            <%= data.info%>
+        </p>
+        <p>picture:</p>
+        <img src='./images/<%= data.pic%>'>
+        <% } %>
+
+            <% if(messages.an) { %>
+                <% for (var x of messages.an) { %>
+                    <h3>
+                        <%= x %>
+                    </h3>
+                    <% } %>
+                        <% } %>
+                            <p><a href='/'>go back</a></p>
+</body>
+
+</html>

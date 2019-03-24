@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="width:40%;display:inline-block"><button id='btn'>click me (ajax)</button>
+
+        <div id='display'></div>
+    </div>
+
+
+    <div style="width:40%;display:inline-block;vertical-align: top">
+        <button id='btn2'>click me (deffered.promise)</button>
+        <div id='display2'></div>
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+
+
+            $('#btn').click(function() {
+                $.ajax({
+                    url: 'https://api.github.com/users/CoraleeZ',
+                    success: function(data) {
+                        str = ''
+                        for (var i in data) {
+                            str += '<p>' + i + ' : ' + data[i] + '</p>'
+                        }
+                        $('#display').html(str)
+                    }
+                })
+
+            })
+
+
+
+
+            $('#btn2').click(function() {
+                let showinfo = new Promise((resolve, reject) => {
+                        $.get('https://api.github.com/users/CoraleeZ', function(data) {
+                            return resolve(data)
+                        });
+                    })
+                    .then((data) => {
+                        str = ''
+                        for (var i in data) {
+                            str += '<p>' + i + ' : ' + data[i] + '</p>'
+                        }
+                        $('#display2').html(str)
+                    });
+            });
+
+
+
+            // $('#btn2').click(function() {
+            //     $.get('https://api.github.com/users/CoraleeZ', function(data) {
+            //         str = ''
+            //         for (var i in data) {
+            //             str += '<p>' + i + ' : ' + data[i] + '</p>'
+            //         }
+            //         $('#display2').html(str)
+            //     });
+
+            // });
+
+        })
+    </script>
+
+</body>
+
+</html>

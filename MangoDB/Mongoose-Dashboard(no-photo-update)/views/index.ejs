@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Display animals</h1>
+    <% for (var x in data){%>
+        <p>
+
+            <a href='/displayone/<%= data[x].id%>'>
+                <%= data[x].name%>
+            </a>
+            <span> |  </span>
+            <a href='/edit/<%= data[x].id%>'>
+                edit
+            </a>
+            <span> |  </span>
+            <a href='/destroy/<%= data[x].id%>'>
+                delete
+            </a>
+        </p>
+        <%}%>
+
+
+            <% if(messages.an) { %>
+                <% for (var x of messages.an) { %>
+                    <h3>
+                        <%= x %>
+                    </h3>
+                    <% } %>
+                        <% } %>
+
+
+                            <button><a href="/mongooses/new">add a new animal</a></button>
+</body>
+
+</html>

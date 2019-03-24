@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var socket = io();
+
+            $('.btn').click(function() {
+                var color = $(this).attr('alt')
+                console.log(color + '**********')
+                socket.emit('click', {
+                    'data': color
+                });
+            });
+
+
+
+            socket.on('updateAllClients', function(data) {
+                console.log(data)
+                $('body').css('background-color', data.data)
+            });
+
+
+        })
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <button class='btn' alt='greenyellow'>greenyellow</button>
+    <button alt='pink' class='btn'>pink</button>
+    <button alt='blue' class='btn'>blue</button>
+</body>
+
+</html>

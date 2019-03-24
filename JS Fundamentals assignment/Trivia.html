@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Document</title>
+    <style>
+        .wrapper {
+            vertical-align: top;
+            display: inline-block;
+            margin: 10px 20px;
+        }
+        
+        .cate {
+            width: 170px;
+            height: 30px;
+            background-color: blanchedalmond;
+            text-align: center
+        }
+        
+        .ques {
+            margin: 20px 0px;
+            width: 170px;
+            height: 170px;
+            background-color: rgb(55, 96, 231);
+        }
+        
+        .score {
+            margin: 20px 0px;
+            text-align: center;
+            width: 170px;
+            height: 110px;
+            background-color: rgb(55, 96, 231);
+            padding-top: 60px;
+            color: white
+        }
+        
+        .done {
+            margin: 20px 0px;
+            width: 170px;
+            height: 170px;
+            background-color: rgb(53, 49, 54);
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            var show_score = 0
+
+            var cate = {}
+            var init = () => $.get('https://opentdb.com/api.php?amount=9', function(data) {
+
+                var str = '';
+                console.log(data);
+                for (var i = 0; i < data.results.length; i++) {
+
+                    if (cate[data.results[i].category]) {
+                        cate[data.results[i].category].push(data.results[i]);
+                    } else if (!cate[data.results[i].category]) {
+                        cate[data.results[i].category] = [data.results[i]];
+                    }
+                }
+
+                for (var j in cate) {
+                    str += "<div class='wrapper'><div class='cate'>" + j + "</div>"
+                    for (var y = 0; y < cate[j].length; y++) {
+                        if (cate[j][y].difficulty == 'easy') {
+                            str += "<div alt='" + j + "'title='" + y + "' class='score'>" + 100 + "</div>"
+                        }
+                        if (cate[j][y].difficulty == 'medium') {
+                            str += "<div alt='" + j + "'title='" + y + "' class='score'>" + 200 + "</div>"
+                        }
+                        if (cate[j][y].difficulty == 'hard') {
+                            str += "<div alt='" + j + "'title='" + y + "' class='score'>" + 300 + "</div>"
+                        }
+
+                    }
+                    str += " </div>"
+                }
+                $('#show_score').html(show_score)
+                $('#here').html(str)
+                console.log(cate)
+                console.log(str)
+            });
+            init();
+
+
+
+
+
+            $(document).on('click', '.score', function() {
+
+                console.log('clicked ')
+                var str = '';
+                var category = $(this).attr('alt');
+                var index = $(this).attr('title');
+                var scores = $(this).text();
+                console.log(category);
+                console.log(cate[category])
+                str += " <div>" + cate[category][index].question + "</div>"
+                var arr = []
+                arr.push("<input type='radio' alt='true' name='" + scores + "'><span>" + cate[category][index].correct_answer + "</span>")
+                for (var z = 0; z < cate[category][index].incorrect_answers.length; z++) {
+                    arr.push("<input type='radio' alt='false' name='" + scores + "'><span>" + cate[category][index].incorrect_answers[z] + "</span>")
+                }
+                for (var h = 0; h < arr.length; h++) {
+                    s = Math.floor(Math.random() * arr.length)
+                    temp = arr[h];
+                    arr[h] = arr[s];
+                    arr[s] = temp;
+                }
+                for (var l = 0; l < arr.length; l++) {
+                    str += arr[l] + '<br>'
+                }
+                console.log(str)
+                $(this).html(str)
+                $(this).attr('class', 'ques');
+            })
+
+            $(document).on('click', 'input[type="radio"]', function() {
+                var ans = $(this).attr('alt')
+                var catchscore = $(this).attr('name')
+                var popup = ''
+                if (ans == 'true') {
+                    show_score += Number(catchscore)
+                    popup = 'Corret!'
+                }
+                if (ans == 'false') {
+
+                    popup = 'Wrong answer!'
+                }
+                $(this).parent().attr('class', 'done')
+                $(this).parent().html(' ')
+                $('#show_score').html(show_score)
+                $('#pop').html(popup)
+                if (document.getElementsByClassName('done').length == 9) {
+                    var link = '<a href="#">click here to continue</a>'
+                    $('#link').html(link)
+                }
+
+            })
+
+
+
+
+
+            $(document).on('click', '#link', function() {
+                var newstart = new Promise((resolve, reject) => {
+                    function refresh() {
+                        cate = {};
+                        return resolve()
+
+                    }
+                    refresh();
+
+                }).then(() => {
+                    $('#pop').html("")
+                    $('#here').html('')
+                    $('#link').html('')
+                    init();
+                })
+
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <h1>Trivia night</h1>
+    <h2>show score</h2><span id="show_score"></span>
+    <div id="pop"></div>
+    <div id='link'></div>
+    <div id='here'></div>
+
+
+
+
+
+
+
+</body>
+
+</html>
